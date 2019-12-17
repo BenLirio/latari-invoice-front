@@ -88,8 +88,9 @@ $(() => {
       }
     }).then(res=> {
       $('.'+res.example.id).html(exampleTemplate(res.example))
+      console.log(res)
       if(res.example.text == '100') {
-        $('body').background = 'green'
+        $('body').css('background-color', 'green')
       }
     })
   })
