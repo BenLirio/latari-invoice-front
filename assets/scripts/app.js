@@ -2,6 +2,7 @@
 const gff = require('../../lib/get-form-fields')
 const url = require('./config').apiUrl
 const store = require('./store')
+const exampleTemplate = require('./templates/example.handlebars')
 // use require with a reference to bundle the file and use it in this file
 // const example = require('./example')
 
@@ -32,7 +33,11 @@ $(() => {
         url:url+'/examples',
         method: 'GET',
         headers: { 'Authorization': 'Token token='+store.user.token}
-      }).then($("#examples").prepend('hello'))
+      }).then(res=>{
+        res.examples.forEach(example=> {
+          $("#examples").prepend(exampleTemplate(example))
+        })
+      })
     }).catch(()=>e.target.style.background='red')
   })
   $('#sign-out').click(()=>{
@@ -57,6 +62,34 @@ $(() => {
       headers: { 'Authorization': 'Token token='+store.user.token},
       method: 'POST',
       data:gff(e.target)
-    }).then(console.log)
+    }).then(res=>{
+      $("#examples").prepend(exampleTemplate(res.example))
+    })
+  })
+  $('#examples').on('click', '.delete',e=>{
+    $.ajax({
+      url:url+'/examples/' + e.target.id,
+      method: 'DELETE',
+      headers: { 'Authorization': 'Token token='+store.user.token}
+    })
+    $('.'+e.target.id).hide()
+  })
+  $('#examples').on('click', '.change',e=>{
+    console.log(e)
+    $.ajax({
+      url:url+'/examples/' + e.target.id.slice(1),
+      method: 'PATCH',
+      headers: { 'Authorization': 'Token token='+store.user.token},
+      data: {
+        example: {
+          text: Math.ceil(Math.random() * 100)
+        }
+      }
+    }).then(res=> {
+      $('.'+res.example.id).html(exampleTemplate(res.example))
+      if(res.example.text == '100') {
+        $('body').background = 'green'
+      }
+    })
   })
 })
