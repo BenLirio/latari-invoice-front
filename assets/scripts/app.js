@@ -76,7 +76,6 @@ $(() => {
     $('.'+e.target.id).hide()
   })
   $('#examples').on('click', '.change',e=>{
-    console.log(e)
     $.ajax({
       url:url+'/examples/' + e.target.id.slice(1),
       method: 'PATCH',
@@ -88,7 +87,6 @@ $(() => {
       }
     }).then(res=> {
       $('.'+res.example.id).html(exampleTemplate(res.example))
-      console.log(res)
       if(res.example.text == '100') {
         $('body').css('background-color', 'green')
       }
