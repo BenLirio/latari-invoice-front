@@ -15,3 +15,5 @@ If you want to get a single instance of an object that is effected by promises a
 I now have a very boring, but working project.
 
 Other things I am still trying to figure out is how exactly does webpack compile code, I feel like I have run into a few issues when not understaning completely how to reference my dependencies.
+### one of the requirements is commits every day, here is a link to the other file
+https://github.com/BenLirio/invoice-front-end
