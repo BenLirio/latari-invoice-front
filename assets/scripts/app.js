@@ -41,10 +41,11 @@ $(() => {
     }).catch(()=>e.target.style.background='red')
   })
   $('#sign-out').click(()=>{
-    $.ajax({url: url+'/sign-out',method:'DELETE',headers: { 'Authorization': 'Token token='+store.user.token}}).then(console.log)
+    $.ajax({url: url+'/sign-out',method:'DELETE',headers: { 'Authorization': 'Token token='+store.user.token}})
     store.user = {}
     $('#main').hide()
     $('#login').show()
+    $('#examples').html('')
   })
   $('#change-password').submit((e)=> {
     e.preventDefault()
