@@ -5,7 +5,7 @@ showSignUp()
 
 
 import { showSignIn } from './ui'
-$('#sign-up').on('submit', e => {
+$('#modal').on('submit', '#sign-up', e => {
   onSignUp(e)
 })
 const onSignUp = function(e) {
@@ -19,7 +19,7 @@ const onSignUp = function(e) {
 }
 
 
-$('#sign-in').on('submit', e => {
+$('#modal').on('submit', '#sign-in', e => {
   onSignIn(e)
 })
 const onSignIn = function(e) {
@@ -27,6 +27,6 @@ const onSignIn = function(e) {
   e.preventDefault()
   const data = getFormFields(e.target)
   api.signIn(data)
-    .then(console.log)
+    .then(()=>console.log('log in success'))
 }
 
