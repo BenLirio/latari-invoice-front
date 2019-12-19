@@ -6,3 +6,8 @@ export function showNav() {
 export function clearNav() {
   $('#header').html('')
 }
+
+import sideBarTemplate from '../templates/side-bar.handlebars'
+export function showSideBar() {
+  $('#content .side-bar').html(sideBarTemplate())
+}
