@@ -12,55 +12,66 @@ export function notSignedIn() {
 // submit sign-up
 import { signUp } from './api'
 import { showSignIn } from './ui'
-$('#modal').on('submit','#sign-up-form', () => {
-  signUp().then(showSignIn())
+$('#modal').on('submit','#sign-up-form', e => {
+  e.preventDefault()
+  const target = e.target
+  const data = getFormFields(target)
+  signUp(data)
+    .then(() => showSignIn())
 })
 
 // submit sign-in
 import { signIn } from './api'
 $('#modal').on('submit','#sign-in-form', () => {
-  signIn().then(console.log)
+  const getUser = response => {
+    return response.user
+  }
+  const storeUser = function(user) {
+    store.user = user
+    return store.user
+  }
+  const stringifyUser = function(pojoUser) {
+    return JSON.stringify(pojoUser)
+  }
+  const setCookie  = function(jsonUser) {
+    document.cookie = jsonUser
+    return jsonUser
+  }
+  signIn()
+    .then(getUser)
+    .then(storeUser)
+    .then(stringifyUser)
+    .then(setCookie)
 })
 
 // press sign-up
 import { showSignUp } from './ui'
-$('sign-up-btn').on('click', () => {
+$('#modal').on('click', 'sign-up-btn', () => {
   $('#modal').html(signUpFormTemplate())
 })
 
 // press change-password
 import showChangePassword from './ui'
-$('#change-password-btn').on('click', () => {
+$('#header').on('click', '#change-password-btn', () => {
   $('#modal').html(showChangePassword())
 })
 
 // submit change-password
 import { changePassword } from './api'
 $('#modal').on('submit','#change-password-form', () => {
-
+  changePassword().then(console.log)
 })
 
 // press log-out
 import { signOut } from './api'
-$('#sign-out-btn').on('click')
-
-
-
-
-
 import { showSignIn } from './ui'
-$('#modal').on('submit', '#sign-up', e => {
-  onSignUp(e)
+$('#header').on('click', '#sign-out-btn', () => {
+  signOut().then(()=>showSignIn())
 })
-const onSignUp = function(e) {
-  e.preventDefault()
-  const data = getFormFields(e.target)
-  api.signUp(data)
-    .then(res=> {
-      showSignIn()
-    })
 
-}
+
+
+
 
 
 $('#modal').on('submit', '#sign-in', e => {
