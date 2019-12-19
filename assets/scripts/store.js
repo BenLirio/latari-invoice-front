@@ -1,7 +1,7 @@
 'use strict'
 
-export default store = {
+const store = {}
 
-}
+export default store
 
 

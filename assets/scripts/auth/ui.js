@@ -12,3 +12,7 @@ import changePasswordTemplate from '../templates/auth/change-password.handlebars
 export function showChangePassword() {
   $('#modal').html(changePasswordTemplate())
 }
+
+export function clearModal() {
+  $('#modal').html('')
+}

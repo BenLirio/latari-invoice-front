@@ -1,28 +1,50 @@
-const getFormFields = require('../../../lib/get-form-fields')
-const api = require('./api')
-const store = require('../store')
-import { showSignUp } from './ui'
+import getFormFields from '../../../lib/get-form-fields'
+import store from '../store'
 
-export function notSignedIn() {
-  store.user = {}
-  document.cookie = ''
-  showSignUp()
+import { clearModal } from './ui'
+import { showSignIn } from './ui'
+export function initAuth() {
+  let user
+  const cookie = document.cookie
+  if (cookie) {
+    try {
+      user = JSON.parse(cookie)
+    } catch (e) {
+      console.log('Error parsing cooking\nresetting...')
+      document.cookie = ''
+    }
+  }
+  if (user) {
+    store.user = user
+    clearModal()
+  } else {
+    showSignIn()
+  }
 }
 
 // submit sign-up
 import { signUp } from './api'
-import { showSignIn } from './ui'
+/* import { clearModal } from './ui' */
+/* import { signUp } from './api' */
+/* import { showSignIn } from './ui' */
 $('#modal').on('submit','#sign-up-form', e => {
   e.preventDefault()
   const target = e.target
   const data = getFormFields(target)
+
   signUp(data)
-    .then(() => showSignIn())
+    .then(()=>showSignIn())
+    .catch(console.error)
 })
 
 // submit sign-in
 import { signIn } from './api'
-$('#modal').on('submit','#sign-in-form', () => {
+/* import { clearModal } from './ui' */
+$('#modal').on('submit','#sign-in-form', e => {
+  e.preventDefault()
+  const target = e.target
+  const data = getFormFields(target)
+
   const getUser = response => {
     return response.user
   }
@@ -37,69 +59,46 @@ $('#modal').on('submit','#sign-in-form', () => {
     document.cookie = jsonUser
     return jsonUser
   }
-  signIn()
+  signIn(data)
     .then(getUser)
     .then(storeUser)
     .then(stringifyUser)
     .then(setCookie)
+    .then(() => clearModal())
+    .catch(console.error)
 })
 
 // press sign-up
 import { showSignUp } from './ui'
-$('#modal').on('click', 'sign-up-btn', () => {
-  $('#modal').html(signUpFormTemplate())
+$('#modal').on('click', '#sign-up-btn', () => {
+  showSignUp()
 })
 
 // press change-password
-import showChangePassword from './ui'
+import { showChangePassword } from './ui'
 $('#header').on('click', '#change-password-btn', () => {
-  $('#modal').html(showChangePassword())
+  showChangePassword()
 })
 
 // submit change-password
+/* import { clearModal } from './ui' */
 import { changePassword } from './api'
-$('#modal').on('submit','#change-password-form', () => {
-  changePassword().then(console.log)
+$('#modal').on('submit','#change-password-form', e => {
+  e.preventDefault()
+  const target = e.target
+  const data = getFormFields(target)
+  changePassword(data).then(console.log)
 })
 
 // press log-out
 import { signOut } from './api'
-import { showSignIn } from './ui'
+/* import { showSignIn } from './ui' */
 $('#header').on('click', '#sign-out-btn', () => {
-  signOut().then(()=>showSignIn())
-})
-
-
-
-
-
-
-$('#modal').on('submit', '#sign-in', e => {
-  onSignIn(e)
-})
-const onSignIn = function(e) {
-  e.preventDefault()
-  const data = getFormFields(e.target)
-  api.signIn(data)
-    .then(successfullySignedIn)
-}
-function successfullySignedIn(res) {
-  store.user = res.user
-  document.cookie = JSON.stringify(res.user)
-}
-
-import { showChangePassword } from './ui'
-$('#header').on('click', '#change-password-btn', e => {
-  console.log(e)
-  showChangePassword()
-})
-
-$('#modal').on('submit', '#change-password', e => {
-  e.preventDefault()
-  const data = getFormFields(e.target)
-  api.changePassword(data)
-})
-
-$('#header').on('click', '#sign-out-btn', e => {
-  api.signOut().then(()=>notSignedIn())
+  const clearCookies = function() {
+    document.cookie = ''
+    return document.cookie
+  }
+  signOut()
+    .then(clearCookies)
+    .then(()=>showSignIn())
 })
