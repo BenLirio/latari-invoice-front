@@ -9,6 +9,45 @@ export function notSignedIn() {
   showSignUp()
 }
 
+// submit sign-up
+import { signUp } from './api'
+import { showSignIn } from './ui'
+$('#modal').on('submit','#sign-up-form', () => {
+  signUp().then(showSignIn())
+})
+
+// submit sign-in
+import { signIn } from './api'
+$('#modal').on('submit','#sign-in-form', () => {
+  signIn().then(console.log)
+})
+
+// press sign-up
+import { showSignUp } from './ui'
+$('sign-up-btn').on('click', () => {
+  $('#modal').html(signUpFormTemplate())
+})
+
+// press change-password
+import showChangePassword from './ui'
+$('#change-password-btn').on('click', () => {
+  $('#modal').html(showChangePassword())
+})
+
+// submit change-password
+import { changePassword } from './api'
+$('#modal').on('submit','#change-password-form', () => {
+
+})
+
+// press log-out
+import { signOut } from './api'
+$('#sign-out-btn').on('click')
+
+
+
+
+
 import { showSignIn } from './ui'
 $('#modal').on('submit', '#sign-up', e => {
   onSignUp(e)
@@ -46,7 +85,8 @@ $('#header').on('click', '#change-password-btn', e => {
 
 $('#modal').on('submit', '#change-password', e => {
   e.preventDefault()
-  api.changePassword()
+  const data = getFormFields(e.target)
+  api.changePassword(data)
 })
 
 $('#header').on('click', '#sign-out-btn', e => {

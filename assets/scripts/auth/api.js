@@ -1,7 +1,7 @@
-const apiUrl = require('../config').apiUrl
-const store = require('../store')
+import { apiUrl } from '../config'
+import store from '../store'
 
-const signUp = function(data) {
+export function signUp(data) {
   return $.ajax({
     url: apiUrl + '/sign-up',
     method: 'POST',
@@ -9,7 +9,7 @@ const signUp = function(data) {
   })
 }
 
-const signIn = function(data) {
+export function signIn(data) {
   return $.ajax({
     url: apiUrl + '/sign-in',
     method: 'POST',
@@ -18,9 +18,9 @@ const signIn = function(data) {
   })
 }
 
-const changePassword = function(data) {
+export function changePassword(data) {
   return $.ajax({
-    url: apiUrl + '/change-password',
+    url: apiUrl + '/change-password/',
     method: 'PATCH',
     headers: {
       'Authorization': 'Token token=' + store.user.token
@@ -29,7 +29,7 @@ const changePassword = function(data) {
   })
 }
 
-const signOut = function() {
+export function signOut() {
   return $.ajax({
     url: apiUrl + '/sign-out',
     method: 'DELETE',
@@ -37,11 +37,4 @@ const signOut = function() {
       'Authorization': 'Token token=' + store.user.token
     }
   })
-}
-
-module.exports = {
-  signIn,
-  signUp,
-  changePassword,
-  signOut
 }
