@@ -3,6 +3,7 @@ import store from '../store'
 
 import { clearModal } from './ui'
 import { showSignIn } from './ui'
+import { showNav } from '../nav/ui'
 export function initAuth() {
   let user
   const cookie = document.cookie
@@ -17,6 +18,7 @@ export function initAuth() {
   if (user) {
     store.user = user
     clearModal()
+    showNav()
   } else {
     showSignIn()
   }
@@ -37,7 +39,13 @@ $('#modal').on('submit','#sign-up-form', e => {
     .catch(console.error)
 })
 
+/* import { showSignIn } from './ui' */
+$('#modal').on('click', '#sign-up-form-cancel', e => {
+  showSignIn()
+})
+
 // submit sign-in
+/* import { initNav } from '../nav/events' */
 import { signIn } from './api'
 /* import { clearModal } from './ui' */
 $('#modal').on('submit','#sign-in-form', e => {
@@ -64,7 +72,10 @@ $('#modal').on('submit','#sign-in-form', e => {
     .then(storeUser)
     .then(stringifyUser)
     .then(setCookie)
-    .then(() => clearModal())
+    .then(() => {
+      clearModal()
+      showNav()
+    })
     .catch(console.error)
 })
 
@@ -90,9 +101,15 @@ $('#modal').on('submit','#change-password-form', e => {
   changePassword(data).then(console.log)
 })
 
+/* import { clearModal } from './ui' */
+$('#modal').on('click', '#change-password-cancel', e => {
+  clearModal()
+})
+
 // press log-out
 import { signOut } from './api'
 /* import { showSignIn } from './ui' */
+import { clearNav } from '../nav/ui'
 $('#header').on('click', '#sign-out-btn', () => {
   const clearCookies = function() {
     document.cookie = ''
@@ -100,5 +117,8 @@ $('#header').on('click', '#sign-out-btn', () => {
   }
   signOut()
     .then(clearCookies)
-    .then(()=>showSignIn())
+    .then(()=>{
+      showSignIn()
+      clearNav()
+    })
 })
