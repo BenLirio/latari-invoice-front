@@ -1,8 +1,12 @@
-const url = '/CHANGE THIS'
+const apiUrl = require('../config').apiUrl
+const url = require(apiUrl + '/invoices')
 
 export function index() {
   $.ajax({
     url,
-    method: 'POST',
+    method: 'GET',
+    headers: {
+      'Authorization': 'Token token=' + store.user.token
+    }
   })
 }
