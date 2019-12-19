@@ -4,6 +4,8 @@ const store = require('../store')
 import { showSignUp } from './ui'
 
 export function notSignedIn() {
+  store.user = {}
+  document.cookie = ''
   showSignUp()
 }
 
@@ -35,3 +37,18 @@ function successfullySignedIn(res) {
   store.user = res.user
   document.cookie = JSON.stringify(res.user)
 }
+
+import { showChangePassword } from './ui'
+$('#header').on('click', '#change-password-btn', e => {
+  console.log(e)
+  showChangePassword()
+})
+
+$('#modal').on('submit', '#change-password', e => {
+  e.preventDefault()
+  api.changePassword()
+})
+
+$('#header').on('click', '#sign-out-btn', e => {
+  api.signOut().then(()=>notSignedIn())
+})

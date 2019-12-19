@@ -8,3 +8,7 @@ export function showSignIn() {
   $('#modal').html(signInTemplate())
 }
 
+import changePasswordTemplate from '../templates/auth/change-password.handlebars'
+export function showChangePassword() {
+  $('#modal').html(changePasswordTemplate())
+}
