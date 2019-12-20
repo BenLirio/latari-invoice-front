@@ -12,6 +12,17 @@ export function showSideBar() {
   $('#content .side-bar').html(sideBarTemplate())
 }
 
+
+// Clear function
+
+export function clearMain() {
+  $('#content .main').html('')
+}
+
 export function clearSideBar() {
   $('#content .side-bar').html('')
+}
+
+export function clearModal() {
+  $('#modal').html('')
 }

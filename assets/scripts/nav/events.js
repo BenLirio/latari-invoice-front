@@ -8,3 +8,13 @@ export function endNav() {
   clearNav()
   clearSideBar()
 }
+
+
+
+
+export function authenticated() {
+
+}
+export function unAuthenticated() {
+
+}

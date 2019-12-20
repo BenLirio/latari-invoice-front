@@ -13,6 +13,3 @@ export function showChangePassword() {
   $('#modal').html(changePasswordTemplate())
 }
 
-export function clearModal() {
-  $('#modal').html('')
-}
