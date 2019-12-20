@@ -1,27 +1,51 @@
 import getFormFields from '../../../lib/get-form-fields'
 import store from '../store'
 
-import { showSignIn } from './ui'
 import Events from '../base/events'
 import Api from '../base/api'
+import { showSignIn, clearModal, showSignUp } from './ui'
+
 Api.prototype.signIn = function(data) {
   return this.custom({ url: 'sign-in', data, method: 'POST' })
+}
+Api.prototype.signUp = function(data) {
+  return this.custom({url: 'sign-up', data, method: 'POST'})
 }
 
 Events.prototype.listenToSubmitModal = function(name,callback) {
   this.listenModal(name, 'submit', callback)
 }
 
-
 const api = new Api()
 const events = new Events()
+showSignIn()
+events.listenToButton('modal', '#sign-in-modal .sign-up-btn', onClickSignUpBtn)
+events.listenToButton('modal', '#sign-up-modal .sign-in-btn', onClickSignInBtn)
 events.listenToSubmitModal('sign-in', onSignIn)
+events.listenToSubmitModal('sign-up', onSignUp)
 export default events
-
+function onClickSignUpBtn(e) {
+  clearModal()
+  $('#modal .modal').on('hidden.bs.modal', function (e) {
+    showSignUp()
+  })
+}
+function onClickSignInBtn(e) {
+  clearModal()
+  $('#modal .modal').on('hidden.bs.modal', function (e) {
+    showSignIn()
+  })
+}
 function onSignIn(data) {
-  console.table(data)
   api.signIn(data).then(console.log)
-
+  clearModal()
+}
+function onSignUp(data) {
+  api.signUp(data).then(console.log)
+  clearModal()
+  $('#modal .modal').on('hidden.bs.modal', function (e) {
+    showSignIn()
+  })
 }
 
 

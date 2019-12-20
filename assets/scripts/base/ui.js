@@ -9,4 +9,7 @@ export default class Ui {
   clear(area) {
     $(`#${area}`).html('')
   }
+  clearModal() {
+    $('#modal .modal').modal('hide')
+  }
 }
