@@ -3,18 +3,25 @@ import store from '../store'
 
 import { showSignIn } from './ui'
 import Events from '../base/events'
+import Api from '../base/api'
+Api.prototype.signIn = function(data) {
+  return this.custom({ url: 'sign-in', data, method: 'POST' })
+}
 
 Events.prototype.listenToSubmitModal = function(name,callback) {
   this.listenModal(name, 'submit', callback)
 }
 
 
+const api = new Api()
 const events = new Events()
 events.listenToSubmitModal('sign-in', onSignIn)
 export default events
 
 function onSignIn(data) {
   console.table(data)
+  api.signIn(data).then(console.log)
+
 }
 
 
