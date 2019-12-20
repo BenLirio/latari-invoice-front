@@ -1,12 +1,10 @@
+// showNav
 import headerTemplate from '../templates/header.handlebars'
 export function showNav() {
   $('#header').html(headerTemplate())
 }
 
-export function clearNav() {
-  $('#header').html('')
-}
-
+// showSideBar
 import sideBarTemplate from '../templates/side-bar.handlebars'
 export function showSideBar() {
   $('#content .side-bar').html(sideBarTemplate())
@@ -14,6 +12,9 @@ export function showSideBar() {
 
 
 // Clear function
+export function clearNav() {
+  $('#header').html('')
+}
 
 export function clearMain() {
   $('#content .main').html('')
