@@ -1,6 +1,30 @@
-<form id="sign-in-form">
-  <input name="credentials[email]" type="text" placeholder="email">
-  <input name="credentials[password]" type="password" placeholder="password">
-  <input type="submit" value="sign in">
-  <input id="sign-up-btn" type="button" value="sign up?">
-</form>
+<div class="modal" data-backdrop="static" id="sign-in-modal" role="dialog">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="sign-in-modal-label">Sign in</h5>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id='sign-in-form'>
+          <div class="form-group">
+            <label for="sign-in-form-email">Email address</label>
+            <input name="credentials[email]" id="sign-in-form-email" type="text" placeholder="Enter email" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="sign-in-form-password">Password</label>
+            <input name="credentials[password]" id="sign-in-form-password" type="password" placeholder="password" class="form-control">
+          </div>
+          <div class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input" id="sign-in-form-check-box">
+            <label class="custom-control-label" for="sign-in-form-check-box">remember me</label>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary submit col-12">continue</button>
+        <button type="button" class="btn btn-secondary col-12">create account</button>
+      </div>
+    </div>
+  </div>
+</div>

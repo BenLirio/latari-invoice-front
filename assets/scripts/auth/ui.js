@@ -1,15 +1,9 @@
-import signUpTemplate from '../templates/auth/sign-up.handlebars'
-export function showSignUp() {
-  $('#modal').html(signUpTemplate())
+import Ui from '../base/ui'
+
+Ui.prototype.showModal = function(name) {
+  this.set('modal', name)
+  $(`#${name}-modal`).modal('show')
 }
 
-import signInTemplate from '../templates/auth/sign-in.handlebars'
-export function showSignIn() {
-  $('#modal').html(signInTemplate())
-}
-
-import changePasswordTemplate from '../templates/auth/change-password.handlebars'
-export function showChangePassword() {
-  $('#modal').html(changePasswordTemplate())
-}
-
+const ui = new Ui('auth')
+export const showSignIn = () => ui.showModal('sign-in')

@@ -11,19 +11,3 @@ export function showSideBar() {
 }
 
 
-// Clear function
-export function clearNav() {
-  $('#header').html('')
-}
-
-export function clearMain() {
-  $('#content .main').html('')
-}
-
-export function clearSideBar() {
-  $('#content .side-bar').html('')
-}
-
-export function clearModal() {
-  $('#modal').html('')
-}
