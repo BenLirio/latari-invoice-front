@@ -1,17 +1,19 @@
-<table class="table">
-  <thead>
-    <th scope="col">#</th>
-    <th scope="col">service</th>
-    <th scope="col">price</th>
-  </thead>
-  <tbody>
-    
-    {{#each invoices as |invoice|}}
-    <tr>
-      <th scope="row">{{invoice.id}}</th>
-      <td>{{this.service}}</td>
-      <td>{{this.price}}</td>
-    </tr>
-    {{/each}}
-  </tbody>
-</table>
+<div>
+  <table class="table">
+    <thead>
+      <th scope="col">#</th>
+      <th scope="col">service</th>
+      <th scope="col">price</th>
+    </thead>
+    <tbody>
+
+      {{#each invoices as |invoice|}}
+      <tr>
+        <th scope="row">{{invoice.id}}</th>
+        <td>{{this.service}}</td>
+        <td>{{this.price}}</td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>

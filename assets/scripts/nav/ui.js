@@ -11,3 +11,7 @@ import sideBarTemplate from '../templates/side-bar.handlebars'
 export function showSideBar() {
   $('#content .side-bar').html(sideBarTemplate())
 }
+
+export function clearSideBar() {
+  $('#content .side-bar').html('')
+}
