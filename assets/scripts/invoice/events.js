@@ -2,12 +2,12 @@
 import getFormFields from '../../../lib/get-form-fields'
 
 
-
 import { showInvoiceTable } from './ui'
 import { index as indexInvoices } from './api'
 export function init() {
   indexInvoices()
     .then(showInvoiceTable)
+    .catch(console.error)
 }
 
 

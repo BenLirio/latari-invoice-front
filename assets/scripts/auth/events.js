@@ -3,7 +3,10 @@ import store from '../store'
 
 import Events from '../base/events'
 import { signIn, signUp } from './api'
-import { showSignIn, clearModal, showSignUp } from './ui'
+import { showSignIn, clearModal, showSignUp, showChangePassword } from './ui'
+import { init as invoiceInit } from '../invoice/events'
+import { init as navInit } from '../nav/events'
+import Ui from '../base/ui'
 
 
 
@@ -16,9 +19,17 @@ const events = new Events()
 showSignIn()
 events.listenToButton('modal', '#sign-in-modal .sign-up-btn', onClickSignUpBtn)
 events.listenToButton('modal', '#sign-up-modal .sign-in-btn', onClickSignInBtn)
+events.listenToButton('header', '#change-password-btn', onClickChangePasswordButton)
 events.listenToSubmitModal('sign-in', onSignIn)
 events.listenToSubmitModal('sign-up', onSignUp)
 export default events
+
+function onClickChangePasswordButton(e) {
+  clearModal()
+  $('#modal .modal').on('hidden.bs.modal', function (e) {
+    showChangePassword()
+  })
+}
 function onClickSignUpBtn(e) {
   clearModal()
   $('#modal .modal').on('hidden.bs.modal', function (e) {
@@ -32,14 +43,20 @@ function onClickSignInBtn(e) {
   })
 }
 function onSignIn(data) {
-  signIn(data).then(console.log)
+  signIn(data)
+    .then(res => {
+      store.user = res.user
+      invoiceInit()
+      navInit()
+    })
   clearModal()
 }
 function onSignUp(data) {
-  signUp(data).then(console.log)
-  clearModal()
-  $('#modal .modal').on('hidden.bs.modal', function (e) {
-    showSignIn()
+  signUp(data).then( () => {
+    clearModal()
+    $('#modal .modal').on('hidden.bs.modal', function (e) {
+      showSignIn()
+    })
   })
 }
 
