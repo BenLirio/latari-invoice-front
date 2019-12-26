@@ -38,13 +38,14 @@ export default class Api {
     })
     return this.ajax(options)
   }
-  update(id, data, options) {
+  update(id, data, options = {}) {
     options = this.auth(options)
     Object.assign(options, {
       method: 'PATCH',
       data,
       url: '/' + id
     })
+    return this.ajax(options)
   }
   destroy(id, options = {}) {
     options = this.auth(options)

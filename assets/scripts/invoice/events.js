@@ -21,6 +21,7 @@ events.listenToButton('side-bar', '#create-invoice-btn', onClickCreateInvoiceBtn
 events.listenToButton('main', '.delete', onClickDeleteInvoice)
 events.listenToButton('main', '.edit', onClickEditInvoice)
 events.listenToSubmitModal('create-invoice', onCreateInvoice)
+events.listenToSubmitModal('update-invoice', onUpdateInvoice)
 
 function onClickCreateInvoiceBtn(e) {
   showCreateInvoiceForm()
@@ -48,7 +49,18 @@ function onClickDeleteInvoice(e) {
 function onDeletedInvoice(id) {
   $(`#main [data-id="${id}"]`).hide()
 }
-
+let currentUpdateId = 0
 function onClickEditInvoice(e) {
+  const id = e.target.dataset.id
+  currentUpdateId = id
   showUpdateInvoiceForm()
+}
+
+function onUpdateInvoice(data) {
+  console.log(currentUpdateId)
+  updateInvoice(currentUpdateId, data)
+    .then(() => {
+      clearModal()
+      index()
+    })
 }
