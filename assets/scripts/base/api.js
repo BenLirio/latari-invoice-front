@@ -30,10 +30,14 @@ export default class Api {
       method: 'GET'
     })
   }
-  create(options) {
+  create(data, options = {}) {
+    console.log(data)
+    options = this.auth(options)
     Object.assign(options, {
-      method: 'POST'
+      method: 'POST',
+      data
     })
+    return this.ajax(options)
   }
   update(options) {
     Object.assign(options, {

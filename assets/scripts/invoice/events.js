@@ -1,7 +1,7 @@
 'use strict'
 import { showInvoiceTable, showCreateInvoiceForm } from './ui'
 import Events from '../base/events'
-import { index as indexInvoices } from './api'
+import { index as indexInvoices, create as createInvoice } from './api'
 
 export function init() {
   indexInvoices()
@@ -20,4 +20,5 @@ function onClickCreateInvoiceBtn(e) {
 
 function onCreateInvoice(data) {
   console.log(data)
+  createInvoice(data).then(console.log)
 }

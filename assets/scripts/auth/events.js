@@ -9,7 +9,7 @@ import { init as navInit } from '../nav/events'
 
 const events = new Events()
 if(!autoSignIn()) {
-  showSignIn()
+showSignIn()
 }
 
 events.listenToButton('modal', '#sign-in-modal .sign-up-btn', onClickSignUpBtn)
