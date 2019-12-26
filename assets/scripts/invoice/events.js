@@ -1,34 +1,18 @@
 'use strict'
-import getFormFields from '../../../lib/get-form-fields'
-
-
-import { showInvoiceTable } from './ui'
+import { showInvoiceTable, showCreateInvoiceForm } from './ui'
+import Events from '../base/events'
 import { index as indexInvoices } from './api'
+
 export function init() {
   indexInvoices()
     .then(showInvoiceTable)
     .catch(console.error)
 }
 
+const events = new Events()
 
-// Show Invoice Form
-import { showCreateInvoiceForm } from './ui'
-$('#content .side-bar').on('click', '#create-invoice-btn', () => {
+events.listenToButton('side-bar', '#create-invoice-btn', onClickCreateInvoiceBtn)
+
+function onClickCreateInvoiceBtn(e) {
   showCreateInvoiceForm()
-})
-
-
-// Submit Invoice Form
-import { clearModal } from './ui'
-import { create as createInvoice } from './api'
-$('#modal').on('submit', '#create-invoice-form', e => {
-  e.preventDefault()
-  const target = e.target
-  const data = getFormFields(target)
-  createInvoice(data)
-    .then(()=>clearModal())
-})
-
-$('#modal').on('click', '#invoice-create-form-cancel', () => {
-  clearModal()
-})
+}

@@ -1,5 +1,5 @@
 import { apiUrl } from '../config'
-import { store } from '../store'
+import store from '../store'
 export default class Api {
   constructor(recourse) {
     this.url = `${apiUrl}/${recourse}`
@@ -18,7 +18,8 @@ export default class Api {
   }
   
 
-  index(options) {
+  index(options = {}) {
+    options = this.auth(options)
     Object.assign(options, {
       method: 'GET',
     })

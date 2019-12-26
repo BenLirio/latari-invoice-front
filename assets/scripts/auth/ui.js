@@ -1,16 +1,20 @@
 import Ui from '../base/ui'
+const ui = new Ui('auth')
 
-Ui.prototype.showModal = function(name) {
-  this.set('modal', name)
+
+const showModal = function(name) {
+  ui.set('modal', name)
   $(`#${name}-modal`).modal('show')
 }
 
-const ui = new Ui('auth')
-export const showSignIn = () => ui.showModal('sign-in')
-export const showSignUp = ()  => ui.showModal('sign-up')
-export const showChangePassword = ()  => {
-  console.log('modal')
-  ui.showModal('change-password')
+export const clearAll = function() {
+  ui.clear('header')
+  ui.clear('side-bar')
+  ui.clear('main')
 }
-export const clearModal = () => ui.clearModal()
 
+
+export const showSignIn = () => showModal('sign-in')
+export const showSignUp = ()  => showModal('sign-up')
+export const showChangePassword = ()  => showModal('change-password')
+export const clearModal = ui.clearModal

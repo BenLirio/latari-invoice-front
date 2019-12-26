@@ -1,12 +1,11 @@
-import getFormFields from '../../../lib/get-form-fields'
+
 import store from '../store'
 
 import Events from '../base/events'
-import { signIn, signUp } from './api'
-import { showSignIn, clearModal, showSignUp, showChangePassword } from './ui'
+import { signIn, signUp, changePassword, signOut } from './api'
+import { showSignIn, clearModal, showSignUp, showChangePassword, clearAll } from './ui'
 import { init as invoiceInit } from '../invoice/events'
 import { init as navInit } from '../nav/events'
-import Ui from '../base/ui'
 
 
 
@@ -16,19 +15,21 @@ Events.prototype.listenToSubmitModal = function(name,callback) {
 }
 
 const events = new Events()
-showSignIn()
+if(!autoSignIn()) {
+  showSignIn()
+}
+
 events.listenToButton('modal', '#sign-in-modal .sign-up-btn', onClickSignUpBtn)
 events.listenToButton('modal', '#sign-up-modal .sign-in-btn', onClickSignInBtn)
 events.listenToButton('header', '#change-password-btn', onClickChangePasswordButton)
+events.listenToButton('header', '#sign-out-btn', onClickSignOutBtn)
 events.listenToSubmitModal('sign-in', onSignIn)
 events.listenToSubmitModal('sign-up', onSignUp)
+events.listenToSubmitModal('change-password', onChangePassword)
 export default events
 
 function onClickChangePasswordButton(e) {
-  clearModal()
-  $('#modal .modal').on('hidden.bs.modal', function (e) {
-    showChangePassword()
-  })
+  showChangePassword()
 }
 function onClickSignUpBtn(e) {
   clearModal()
@@ -42,12 +43,17 @@ function onClickSignInBtn(e) {
     showSignIn()
   })
 }
+function onClickSignOutBtn(e) {
+  document.cookie = ''
+  signOut().then(()=> {
+    clearAll()
+    showSignIn()
+  })
+}
 function onSignIn(data) {
   signIn(data)
     .then(res => {
-      store.user = res.user
-      invoiceInit()
-      navInit()
+      authenticated(res.user)
     })
   clearModal()
 }
@@ -59,34 +65,65 @@ function onSignUp(data) {
     })
   })
 }
+function onChangePassword(data) {
+  changePassword(data).then(() => clearModal())
+}
 
+function storeUser(user) {
+  const pojo = JSON.stringify(user)
+  store.user = user
+  document.cookie = pojo
+}
 
+function autoSignIn() {
+  let user
+  const cookie = document.cookie
+  if (cookie) {
+    try {
+      user = JSON.parse(cookie)
+    } catch (e) {
+      console.log('Error parsing cooking\nresetting...')
+      document.cookie = ''
+    }
+  }
+  if (user) {
+    authenticated(user)
+    return true
+  }
+  return false
+}
+
+function authenticated(user) {
+  storeUser(user)
+  invoiceInit()
+  navInit()
+}
 
 
 // import { clearModal } from './ui'
 
 // import { initNav } from '../nav/events'
 // import { clearMain } from '../invoice/ui'
-// export function initAuth() {
-//   let user
-//   const cookie = document.cookie
-//   if (cookie) {
-//     try {
-//       user = JSON.parse(cookie)
-//     } catch (e) {
-//       console.log('Error parsing cooking\nresetting...')
-//       document.cookie = ''
-//     }
-//   }
-//   if (user) {
-//     store.user = user
-//     clearModal()
-//     initNav()
-//     initInvoice()
-//   } else {
-//     showSignIn()
-//   }
-// }
+export function initAuth() {
+  let user
+  const cookie = document.cookie
+  if (cookie) {
+    try {
+      user = JSON.parse(cookie)
+    } catch (e) {
+      console.log('Error parsing cooking\nresetting...')
+      document.cookie = ''
+    }
+  }
+  if (user) {
+    store.user = user
+    clearModal()
+    initNav()
+    initInvoice()
+  } else {
+    showSignIn()
+  }
+}
 
 // // submit sign-up
 // import { signUp } from './api'

@@ -1,13 +1,16 @@
 import Ui from '../base/ui'
 const ui = new Ui('invoices')
 
-
-Ui.prototype.showInvoiceTable = function(invoices) {
+const showModal = function(name) {
+  ui.set('modal', name)
+  console.log($(`#${name}-invoice-modal`).modal)
+  $(`#${name}-invoice-modal`).modal('show')
+}
+export const showInvoiceTable = function(invoices) {
   ui.set('main', 'index', invoices)
   
 }
-export const showInvoiceTable = invoices => ui.showInvoiceTable(invoices)
 
 export function showCreateInvoiceForm() {
-  $('#modal').html(createInvoiceTemplate())
+  showModal('create')
 }
