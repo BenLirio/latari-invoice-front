@@ -7,13 +7,6 @@ import { showSignIn, clearModal, showSignUp, showChangePassword, clearAll } from
 import { init as invoiceInit } from '../invoice/events'
 import { init as navInit } from '../nav/events'
 
-
-
-
-Events.prototype.listenToSubmitModal = function(name,callback) {
-  this.listenModal(name, 'submit', callback)
-}
-
 const events = new Events()
 if(!autoSignIn()) {
   showSignIn()

@@ -12,7 +12,12 @@ export function init() {
 const events = new Events()
 
 events.listenToButton('side-bar', '#create-invoice-btn', onClickCreateInvoiceBtn)
+events.listenToSubmitModal('create-invoice', onCreateInvoice)
 
 function onClickCreateInvoiceBtn(e) {
   showCreateInvoiceForm()
+}
+
+function onCreateInvoice(data) {
+  console.log(data)
 }

@@ -15,4 +15,7 @@ export default class Events {
       callback(data)
     })
   }
+  listenToSubmitModal(name,callback) {
+    this.listenModal(name, 'submit', callback)
+  }
 }
