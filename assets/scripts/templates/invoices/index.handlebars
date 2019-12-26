@@ -8,10 +8,12 @@
     <tbody>
 
       {{#each invoices as |invoice|}}
-      <tr>
+      <tr data-id="{{invoice.id}}">
         <th scope="row">{{invoice.id}}</th>
         <td>{{this.service}}</td>
         <td>{{this.price}}</td>
+        <td><button data-id="{{invoice.id}}" class="btn btn-info edit">edit</button>
+        <button data-id="{{invoice.id}}" class="btn btn-danger delete">delete</button></td>
       </tr>
       {{/each}}
     </tbody>

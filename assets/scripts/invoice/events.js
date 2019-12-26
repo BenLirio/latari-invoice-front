@@ -1,7 +1,7 @@
 'use strict'
-import { showInvoiceTable, showCreateInvoiceForm, clearModal, clearMain } from './ui'
+import { showInvoiceTable, showCreateInvoiceForm, clearModal, clearMain, showUpdateInvoiceForm } from './ui'
 import Events from '../base/events'
-import { index as indexInvoices, create as createInvoice } from './api'
+import { index as indexInvoices, create as createInvoice, destroy as destroyInvoice, update as updateInvoice} from './api'
 
 export function init() {
   index()
@@ -18,6 +18,8 @@ function index() {
 const events = new Events()
 
 events.listenToButton('side-bar', '#create-invoice-btn', onClickCreateInvoiceBtn)
+events.listenToButton('main', '.delete', onClickDeleteInvoice)
+events.listenToButton('main', '.edit', onClickEditInvoice)
 events.listenToSubmitModal('create-invoice', onCreateInvoice)
 
 function onClickCreateInvoiceBtn(e) {
@@ -35,4 +37,18 @@ function createdInvoice(res) {
   const invoice = res.invoice
   clearModal()
   index()
+}
+
+function onClickDeleteInvoice(e) {
+  const id = e.target.dataset.id
+  destroyInvoice(id).then(() => onDeletedInvoice(id))
+  
+}
+
+function onDeletedInvoice(id) {
+  $(`#main [data-id="${id}"]`).hide()
+}
+
+function onClickEditInvoice(e) {
+  showUpdateInvoiceForm()
 }

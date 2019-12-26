@@ -12,7 +12,7 @@ export default class Api {
   }
   ajax(options) {
     Object.assign(options, {
-      url: this.url
+      url: this.url + (options.url || '')
     })
     return $.ajax(options)
   }
@@ -31,7 +31,6 @@ export default class Api {
     })
   }
   create(data, options = {}) {
-    console.log(data)
     options = this.auth(options)
     Object.assign(options, {
       method: 'POST',
@@ -39,15 +38,21 @@ export default class Api {
     })
     return this.ajax(options)
   }
-  update(options) {
+  update(id, data, options) {
+    options = this.auth(options)
     Object.assign(options, {
-      method: 'PATCH'
+      method: 'PATCH',
+      data,
+      url: '/' + id
     })
   }
-  destroy(options) {
+  destroy(id, options = {}) {
+    options = this.auth(options)
     Object.assign(options, {
-      method: 'DELETE'
+      method: 'DELETE',
+      url: '/' + id
     })
+    return this.ajax(options)
   }
   auth(options) {
     return Object.assign(options, {
