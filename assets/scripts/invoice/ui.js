@@ -12,3 +12,8 @@ export const showInvoiceTable = function(invoices) {
 export function showCreateInvoiceForm() {
   showModal('create')
 }
+
+export const clearModal = ui.clearModal
+export const clearMain = function() {
+  ui.clear('main')
+}
