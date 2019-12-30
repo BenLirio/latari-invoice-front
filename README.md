@@ -36,19 +36,15 @@ But this is about the front end so I will go into that.
 ## Front end MVC
 I tried to recreate the rails on front end.
 By indexing all of the available recources and dynamically representing them on the front end so that they could automatically update when I used them.
-## Pitfalls
-I really ran into the first issues with asynchronous coding. I didn't understand how to properly manipulate the ASYNC await and promise synctax. 
-I learned two very important things while testing.
-1. Chome dev tools shows a life representation of an object. It takes in the reference and then keep track of it from there.
-If you want to get a single instance of an object that is effected by promises and awaits use JSON.parse(JSON.stringify())
-2. The biggest problem I have in programing is constantly trying to refactor and optimize a small part of the code when I could be taking large gains in other areas.
-## Ended up pivoting the project in order to complete requirements.
-I now have a very boring, but working project.
 
-Other things I am still trying to figure out is how exactly does webpack compile code, I feel like I have run into a few issues when not understaning completely how to reference my dependencies.
 ### one of the requirements is commits every day, here is a link to the other file
 https://github.com/BenLirio/invoice-front-end
 
 ## Unsolved problems
 The transitions should be fixed.
 The remember me button is permanently pressed down.
+I really ran into the first issues with asynchronous coding. I didn't understand how to properly manipulate the ASYNC await and promise synctax. 
+I learned two very important things while testing.
+1. Chome dev tools shows a life representation of an object. It takes in the reference and then keep track of it from there.
+If you want to get a single instance of an object that is effected by promises and awaits use JSON.parse(JSON.stringify())
+2. The biggest problem I have in programing is constantly trying to refactor and optimize a small part of the code when I could be taking large gains in other areas.
