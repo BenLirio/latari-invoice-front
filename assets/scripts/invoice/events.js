@@ -11,7 +11,6 @@ function index() {
   clearMain()
   indexInvoices()
     .then(showInvoiceTable)
-    .catch(console.error)
 
 }
 
@@ -28,10 +27,8 @@ function onClickCreateInvoiceBtn(e) {
 }
 
 function onCreateInvoice(data) {
-  console.log(data)
   createInvoice(data)
     .then(createdInvoice)
-    .catch(console.error)
 }
 
 function createdInvoice(res) {
@@ -57,7 +54,6 @@ function onClickEditInvoice(e) {
 }
 
 function onUpdateInvoice(data) {
-  console.log(currentUpdateId)
   updateInvoice(currentUpdateId, data)
     .then(() => {
       clearModal()

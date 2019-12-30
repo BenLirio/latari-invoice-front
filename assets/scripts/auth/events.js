@@ -86,7 +86,6 @@ function autoSignIn() {
     try {
       user = JSON.parse(cookie)
     } catch (e) {
-      console.log('Error parsing cooking\nresetting...')
       document.cookie = ''
     }
   }
@@ -115,7 +114,6 @@ export function initAuth() {
     try {
       user = JSON.parse(cookie)
     } catch (e) {
-      console.log('Error parsing cooking\nresetting...')
       document.cookie = ''
     }
   }
