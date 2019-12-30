@@ -9,7 +9,7 @@
 
       {{#each invoices as |invoice|}}
       <tr data-id="{{invoice.id}}">
-        <th scope="row">{{invoice.id}}</th>
+        <th scope="row">{{invoice.invoice_id}}</th>
         <td>{{this.service}}</td>
         <td>{{this.price}}</td>
         <td><button data-id="{{invoice.id}}" class="btn btn-info edit">edit</button>

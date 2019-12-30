@@ -44,6 +44,7 @@ function onClickSignOutBtn(e) {
   })
 }
 function onSignIn(data) {
+  $('#sign-in-modal form input[type="password"]').removeClass('is-invalid')
   signIn(data)
     .then(res => {
       authenticate(res.user)
@@ -58,9 +59,18 @@ function onSignUp(data) {
       showSignIn()
     })
   })
+  .catch(err => {
+    $('#sign-up-modal form input').addClass('is-invalid')
+    $('#sign-up-modal form input').val('')
+  })
 }
 function onChangePassword(data) {
-  changePassword(data).then(() => clearModal())
+  
+  $('#change-password-modal form input').removeClass('is-invalid')
+  changePassword(data).then(() => clearModal()).catch(()=>{
+    $('#change-password-modal form input').val('')
+    $('#change-password-modal form input').addClass('is-invalid')
+  })
 }
 
 function storeUser(user) {
