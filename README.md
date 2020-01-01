@@ -2,8 +2,11 @@
 This web application helps business owners keep track of their invoices online. It saves the data and makes sure they can edit and delete the invoices that they have already. Users will use this application to Create Read Update and Delete their own private invoices under their own account.
 ## backend repo
 https://github.com/BenLirio/latari-invoice-back
-## Deployed sites
-FIXME ENTER BOTH DEPLOYED SITES HERE
+## Deployed
+### Front End
+https://benlirio.github.io/latari-inv…
+### Back End
+https://young-island-83955.herokuapp.com/
 
 ## Technologies used
 WebPack
