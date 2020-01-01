@@ -17,12 +17,19 @@ Chrome
 
 ## User stories
 A new user should be able to create an account
+
 A return user should be able to log in to his account
+
 A User trying to save invoice information should be able to save his invoice
+
 A User trying to index other users invoices should not be able to
+
 A user trying to change his password should be able to do so
+
 A user tyring to log out and log in as another user should be able to do so.
+
 A user trying to be remembered from time to time should be able to.
+
 
 ## Planning and story
 I started off this project with a large scope in mind. 
