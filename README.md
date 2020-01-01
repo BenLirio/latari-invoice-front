@@ -41,17 +41,6 @@ https://xd.adobe.com/view/4a152c29-2535-46df-4892-73fc16b59ebd-3c24/
 link here brings you to live wire frame
 Most of this wire frame is a reach goal, but I wanted to have something in mind when programing.
 
-### Basic project
-I had a long trial and error period with a bunch of other system.
-First I tried a testing based approach. That did not really work out to well. Yet I really go to under stand the back end becuase of it. I now understand how the authentication works even thought that is not very helpful for the project.
-But this is about the front end so I will go into that.
-## Front end MVC
-I tried to recreate the rails on front end.
-By indexing all of the available recources and dynamically representing them on the front end so that they could automatically update when I used them.
-
-### one of the requirements is commits every day, here is a link to the other file
-https://github.com/BenLirio/invoice-front-end
-
 ## Unsolved problems
 The transitions should be fixed.
 The remember me button is permanently pressed down.
