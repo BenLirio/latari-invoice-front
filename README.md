@@ -13,8 +13,7 @@ WebPack
 Grunt
 Handlebars
 npm, node js
-
-
+Chrome
 
 ## User stories
 A new user should be able to create an account
